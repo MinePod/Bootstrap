@@ -33,8 +33,13 @@ public class Start {
 			 String CurrentLauncherMd5 = fr.minepod.Utils.Files.md5(Config.LauncherJar);
 			 String ExpectedLauncherMd5 = fr.minepod.Utils.Files.ReadFile(Config.LauncherMd5);
 			 
-			 if(CurrentLauncherMd5 == null || !CurrentLauncherMd5.equals(ExpectedLauncherMd5))
+			 Config.Logger.info("Expected md5: " + ExpectedLauncherMd5);
+			 Config.Logger.info("Current md5: " + CurrentLauncherMd5);
+			 
+			 if(CurrentLauncherMd5 == null || !CurrentLauncherMd5.equals(ExpectedLauncherMd5)) {
+				 Config.Logger.warning("Detecting modified files, deleting...");
 				 Downloader.DownloadFiles(new URL(Config.LauncherLatestVersionUrl), Config.LauncherJar, true);
+			 }
 				 
 		     Config.Gui.Finish();
 			 Config.Logger.info("Ready!");

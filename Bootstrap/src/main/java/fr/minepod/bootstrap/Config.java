@@ -25,7 +25,7 @@ public class Config {
 	 public static String Slash;
 	 public static String LauncherLocation;
 	 public static String LauncherJar;
-	 public static Gui Gui = new Gui();
+	 public static Gui Gui;
 	 
 	 public static java.util.logging.Logger Logger;
 	 
@@ -72,6 +72,8 @@ public class Config {
 		} catch(IOException e) {
 			CrashReport.SendReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
 		}
+		
+		Config.Gui = new Gui();
 	 }
 		    
 	 public void SetBootstrapVersion(String Version) {
