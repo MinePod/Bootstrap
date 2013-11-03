@@ -49,6 +49,7 @@
             </descriptorRefs>
             <finalName>MinePod-${project.version}</finalName>
             <outputDirectory>target</outputDirectory>
+            <appendAssemblyId>false</appendAssemblyId>
           </configuration>
           <executions>
             <execution>
