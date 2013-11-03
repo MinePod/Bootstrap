@@ -10,7 +10,7 @@ import fr.minepod.bootstrap.Gui;
 
 public class Config {
 	 public static String LauncherLatestVersionUrl = "http://assets.minepod.fr/launcher/launcher.php";
-	 public static String BootstrapVersionUrl = "http://assets.minepod.fr/launcher/versions/bootstrap.txt";
+	 public static String BootstrapVersionUrl = "http://assets.minepod.fr/launcher/versions/bootstrap_name.txt";
 	 public static String BootstrapLatestVersionUrl = "http://assets.minepod.fr/launcher/bootstrap.php";
 	 public static String GetMd5FileUrl = "http://assets.minepod.fr/launcher/md5.php?file=";
 	 public static String LauncherName = "MinePod";
