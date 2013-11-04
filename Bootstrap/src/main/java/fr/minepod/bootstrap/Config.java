@@ -46,7 +46,6 @@ public class Config {
 		}
 		
 		Config.Slash = System.getProperty("file.separator");
-		
 		Config.LauncherLocation = AppDataPath + LauncherDir;
 		Config.LauncherJar = Config.LauncherLocation + Config.Slash + "Launcher.jar";
 		Config.LauncherMd5 = Config.LauncherLocation + Config.Slash + "Launcher.md5";
