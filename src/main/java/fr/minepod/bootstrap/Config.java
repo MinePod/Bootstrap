@@ -69,7 +69,7 @@ public class Config {
 	        	SetBootstrapVersion(Langage.DEVELOPMENTVERSION.toString());
 	        }
 		} catch(IOException e) {
-			CrashReport.SendReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
+			new CrashReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
 		}
 		
 		Config.Gui = new Gui();

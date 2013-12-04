@@ -9,8 +9,6 @@ public class Start {
 	
 	public static void main(String[] args) throws IOException {
 		new Config().SetConfig();
-		new Debug().SetDebug();
-		
 		DownloadRequiredFiles();
 	}
 	
@@ -48,13 +46,13 @@ public class Start {
 				 new LaunchJar(Config.LauncherJar);
 				 System.exit(0);
 			 } catch (Exception e) {
-				 CrashReport.SendReport(e.toString(), "launching MinePod's launcher");
+				 new CrashReport(e.toString(), "launching MinePod's launcher");
 			 }
 
 		 } catch (IOException e) {	 
-			CrashReport.SendReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
+			new CrashReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
 		 } catch (Exception e) {
-			CrashReport.SendReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
+			new CrashReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
 		 }
 		 
 	 }
