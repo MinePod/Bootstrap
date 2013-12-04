@@ -29,53 +29,55 @@ public class Config {
 	 
 	 public static java.util.logging.Logger Logger;
 	 
-	 public void SetConfig() {
-		String OS = System.getProperty("os.name").toUpperCase();
-		if(OS.contains("WIN")) {
-			Config.AppDataPath = System.getenv("APPDATA");
-			Config.LauncherDir = "\\." + LauncherName;
-		} else if(OS.contains("MAC")) {
-			Config.AppDataPath = System.getProperty("user.home") + "/Library/Application Support";
-			Config.LauncherDir = "/" + LauncherName;
-		} else if(OS.contains("NUX")) {
-			Config.AppDataPath = System.getProperty("user.home");
-			Config.LauncherDir = "/." + LauncherName;
-		} else {
-			Config.AppDataPath =  System.getProperty("user.dir");
-			Config.LauncherDir = "/." + LauncherName;
-		}
+	 public static void SetConfig() {
+		 String OS = System.getProperty("os.name").toUpperCase();
+		 if(OS.contains("WIN")) {
+			 Config.AppDataPath = System.getenv("APPDATA");
+			 Config.LauncherDir = "\\." + LauncherName;
+		 } else if(OS.contains("MAC")) {
+			 Config.AppDataPath = System.getProperty("user.home") + "/Library/Application Support";
+			 Config.LauncherDir = "/" + LauncherName;
+		 } else if(OS.contains("NUX")) {
+			 Config.AppDataPath = System.getProperty("user.home");
+			 Config.LauncherDir = "/." + LauncherName;
+		 } else {
+			 Config.AppDataPath =  System.getProperty("user.dir");
+			 Config.LauncherDir = "/." + LauncherName;
+		 }
 		
-		Config.Slash = System.getProperty("file.separator");
-		Config.LauncherLocation = AppDataPath + LauncherDir;
-		Config.LauncherJar = Config.LauncherLocation + Config.Slash + "Launcher.jar";
-		Config.LauncherMd5 = Config.LauncherLocation + Config.Slash + "Launcher.md5";
-		Config.DebugFilePath = LauncherLocation + Slash + "debug.json";
-		Config.BootstrapAvaibleVersion = Config.LauncherLocation + Config.Slash + "Bootstrap.txt";
-		Config.LogFile = LauncherLocation + Slash + "bootstrap_logs.txt";
+		 Config.Slash = System.getProperty("file.separator");
+		 Config.LauncherLocation = AppDataPath + LauncherDir;
+		 Config.LauncherJar = Config.LauncherLocation + Config.Slash + "Launcher.jar";
+		 Config.LauncherMd5 = Config.LauncherLocation + Config.Slash + "Launcher.md5";
+		 Config.DebugFilePath = LauncherLocation + Slash + "debug.json";
+		 Config.BootstrapAvaibleVersion = Config.LauncherLocation + Config.Slash + "Bootstrap.txt";
+		 Config.LogFile = LauncherLocation + Slash + "bootstrap_logs.txt";
 		
-		try {
-			Logger = new fr.minepod.Utils.Logger().SetLogger(Config.LogFile);
+		 Config.Gui = new Gui();
+	 }
+	 
+	 public static void Tasks() {
+		 try {
+			 Logger = new fr.minepod.Utils.Logger().SetLogger(Config.LogFile);
 			
-			InputStream InputStream = Start.class.getProtectionDomain().getCodeSource().getLocation().openStream();
-	        JarInputStream JarInputStream = new JarInputStream(InputStream);
-	        Manifest Manifest = JarInputStream.getManifest();
-	        JarInputStream.close();
-	        InputStream.close();
+			 InputStream InputStream = Bootstrap.class.getProtectionDomain().getCodeSource().getLocation().openStream();
+			 JarInputStream JarInputStream = new JarInputStream(InputStream);
+			 Manifest Manifest = JarInputStream.getManifest();
+			 JarInputStream.close();
+			 InputStream.close();
 	        
-	        if(Manifest != null) {
-	            Attributes Attributes = Manifest.getMainAttributes();
-	            SetBootstrapVersion(Attributes.getValue("Bootstrap-version"));
-	        } else {
-	        	SetBootstrapVersion(Langage.DEVELOPMENTVERSION.toString());
-	        }
-		} catch(IOException e) {
-			new CrashReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
-		}
-		
-		Config.Gui = new Gui();
+			 if(Manifest != null) {
+				 Attributes Attributes = Manifest.getMainAttributes();
+				 SetBootstrapVersion(Attributes.getValue("Bootstrap-version"));
+			 } else {
+				 SetBootstrapVersion(Langage.DEVELOPMENTVERSION.toString());
+			 }
+		 } catch(IOException e) {
+			 new CrashReport(e.toString(), Langage.DOINGMAINTHREADTASKS.toString());
+		 }
 	 }
 		    
-	 public void SetBootstrapVersion(String Version) {
+	 public static void SetBootstrapVersion(String Version) {
 		 Config.BootstrapVersion = Version;
 	 }
 }

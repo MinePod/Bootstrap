@@ -47,7 +47,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>fr.minepod.bootstrap.Start</mainClass>
+                <mainClass>fr.minepod.bootstrap.Bootstrap</mainClass>
               </manifest>
               <manifestEntries>
                  <Bootstrap-Version>${project.version}</Bootstrap-Version>

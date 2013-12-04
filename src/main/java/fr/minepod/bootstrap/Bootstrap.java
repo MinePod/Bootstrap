@@ -4,11 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class Start {
+public class Bootstrap {
 	private static Downloader Downloader = new Downloader();
 	
 	public static void main(String[] args) throws IOException {
-		new Config().SetConfig();
+		Config.SetConfig();
+		
+		if(!new File(Config.LauncherLocation).exists())
+		new File(Config.LauncherLocation).mkdir();		
+		
+		Config.Tasks();
+		 
 		DownloadRequiredFiles();
 	}
 	
@@ -22,9 +28,6 @@ public class Start {
 				 javax.swing.JOptionPane.showMessageDialog(null, Langage.ANOTHERVERSIONISAVAIBLE + fr.minepod.Utils.Files.ReadFile(Config.BootstrapAvaibleVersion) + "! " + Config.BootstrapLatestVersionUrl, "Information", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 				 System.exit(0);
 			 }
-			 
-			 if(!new File(Config.LauncherLocation).exists())
-				 new File(Config.LauncherLocation).mkdir();		
 			 
 			 Downloader.DownloadFiles(new URL(Config.GetMd5FileUrl + "launcher.php"), Config.LauncherMd5, false);
 			
