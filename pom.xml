@@ -7,6 +7,7 @@
 	<version>3.0.0</version>
 
 	<properties>
+		<build.builder>File Server</build.builder>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -50,6 +51,7 @@
 							<mainClass>fr.minepod.bootstrap.Bootstrap</mainClass>
 						</manifest>
 						<manifestEntries>
+							<Built-By>${build.builder}</Built-By>
 							<Bootstrap-Version>${project.version}</Bootstrap-Version>
 						</manifestEntries>
 					</archive>
