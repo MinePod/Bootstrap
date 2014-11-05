@@ -1,5 +1,6 @@
 package fr.minepod.bootstrap;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.Attributes;
@@ -56,6 +57,10 @@ public class Config {
     launcherMd5 = launcherLocation + slash + "launcher.md5";
     bootstrapVersionFile = launcherLocation + slash + "bootstrap.txt";
     logFile = launcherLocation + slash + "bootstrap_logs.txt";
+
+    if (!new File(Config.launcherLocation).exists()) {
+      new File(Config.launcherLocation).mkdir();
+    }
 
     try {
       logger = UtilsLogger.setLogger(logFile);

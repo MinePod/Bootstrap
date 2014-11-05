@@ -1,6 +1,5 @@
 package fr.minepod.bootstrap;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
@@ -20,10 +19,6 @@ public class Bootstrap {
 
   public static void main(String[] args) throws IOException {
     Config.setConfig();
-
-    if (!new File(Config.launcherLocation).exists()) {
-      new File(Config.launcherLocation).mkdir();
-    }
 
     downloadRequiredFiles();
   }
