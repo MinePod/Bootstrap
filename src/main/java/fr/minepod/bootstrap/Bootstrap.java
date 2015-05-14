@@ -8,59 +8,57 @@ import javax.swing.JOptionPane;
 import org.json.simple.parser.ParseException;
 
 import fr.minepod.launcher.CrashReport;
-import fr.minepod.launcher.DownloaderThread;
 import fr.minepod.launcher.LaunchJar;
-import fr.minepod.launcher.VersionClass;
-import fr.minepod.launcher.VersionsManager;
+import fr.minepod.launcher.updater.files.DownloaderThread;
+import fr.minepod.launcher.updater.versions.VersionClass;
+import fr.minepod.launcher.updater.versions.VersionsUpdater;
 import fr.minepod.utils.UtilsFiles;
 
 public class Bootstrap {
   public static BootstrapGui gui;
+  public static UtilsFiles utilsFiles = new UtilsFiles();
 
-  public static void main(String[] args) throws IOException {
-    Config.setConfig();
+  public static void main(String[] args) {
+    try {
+      BootstrapConfig.setLauncherConfig();
+      BootstrapConfig.setBootstrapConfig();
+      BootstrapConfig.logger.setUseParentHandlers(false);
 
-    downloadRequiredFiles();
+      downloadRequiredFiles();
+    } catch (SecurityException | IOException | NoSuchAlgorithmException | InterruptedException
+        | ParseException e) {
+      CrashReport.show(e);
+    }
   }
 
-  public static void downloadRequiredFiles() {
-    try {
-      gui = new BootstrapGui();
-      gui.initGui();
+  public static void downloadRequiredFiles() throws InterruptedException, IOException,
+      NoSuchAlgorithmException, ParseException {
+    gui = new BootstrapGui();
+    gui.initGui();
 
-      DownloaderThread downloader =
-          new DownloaderThread(Config.logger, Config.bootstrapVersionUrl,
-              Config.bootstrapVersionFile);
-      downloader.start();
-      downloader.join();
+    DownloaderThread downloader =
+        new DownloaderThread(gui, BootstrapConfig.logger, BootstrapConfig.bootstrapVersionUrl,
+            BootstrapConfig.bootstrapVersionFile);
+    downloader.start();
+    downloader.join();
 
-      String upstreamVersion = UtilsFiles.readFile(Config.bootstrapVersionFile);
-      if (!Config.bootstrapVersion.equals(upstreamVersion)
-          && Config.bootstrapVersion != Langage.DEVELOPMENTVERSION.toString()) {
-        JOptionPane.showMessageDialog(null, "Une nouvelle version (" + upstreamVersion
-            + ") est disponible sur le site.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    String upstreamVersion = utilsFiles.readFile(BootstrapConfig.bootstrapVersionFile);
+    if (!BootstrapConfig.bootstrapVersion.equals(upstreamVersion)
+        && BootstrapConfig.bootstrapVersion != "Version de développement") {
+      JOptionPane.showMessageDialog(null, "Une nouvelle version (" + upstreamVersion
+          + ") est disponible sur le site.", "Information", JOptionPane.INFORMATION_MESSAGE);
 
-        System.exit(0);
-      }
-
-      VersionsManager versionsManager =
-          new VersionsManager(Config.launcherLocation, null, Config.minecraftDir, Config.slash,
-              Config.logger);
-      versionsManager.installVersion(new VersionClass(Config.bootstrapDataUrl, "unknown",
-          "unknown", "unknown", "unknown", "unknown"), Bootstrap.gui, Config.logger);
-
-      gui.finish();
-      Config.logger.info("Ready!");
-
-      try {
-        new LaunchJar(Config.launcherJar);
-        System.exit(0);
-      } catch (Exception e) {
-        CrashReport.show(e.toString());
-      }
-
-    } catch (IOException | InterruptedException | NoSuchAlgorithmException | ParseException e) {
-      CrashReport.show(e.toString());
+      System.exit(0);
     }
+
+    VersionsUpdater versionsUpdater = new VersionsUpdater(BootstrapConfig.logger);
+    versionsUpdater.installVersion(gui, new VersionClass(BootstrapConfig.bootstrapDataUrl,
+        "unknown", "unknown", "unknown", "unknown"));
+
+    gui.finish();
+    BootstrapConfig.logger.info("Ready!");
+
+    new LaunchJar(BootstrapConfig.launcherJar);
+    System.exit(0);
   }
 }

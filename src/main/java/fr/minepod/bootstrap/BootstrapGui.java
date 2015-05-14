@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import fr.minepod.launcher.LauncherGui;
+import fr.minepod.launcher.gui.LauncherGui;
 
 public class BootstrapGui extends LauncherGui {
   public BootstrapGui() {
@@ -12,7 +12,7 @@ public class BootstrapGui extends LauncherGui {
   }
 
   public void initGui() {
-    JFrame j = new JFrame("MinePod Bootstrap " + Config.bootstrapVersion);
+    JFrame j = new JFrame("MinePod Bootstrap " + BootstrapConfig.bootstrapVersion);
     j.setContentPane(progress);
 
     progress.setStringPainted(true);
