@@ -12,7 +12,10 @@ public class BootstrapGui extends LauncherGui {
   }
 
   public void initGui() {
-    JFrame j = new JFrame("MinePod Bootstrap " + BootstrapConfig.bootstrapVersion);
+    JFrame j =
+        new JFrame("MinePod Bootstrap "
+            + (BootstrapConfig.bootstrapVersion != null ? BootstrapConfig.bootstrapVersion
+                : "Version de développement"));
     j.setContentPane(progress);
 
     progress.setStringPainted(true);

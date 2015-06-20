@@ -4,7 +4,7 @@
 
 	<groupId>fr.minepod</groupId>
 	<artifactId>bootstrap</artifactId>
-	<version>3.0.1.1</version>
+	<version>3.0.1.2</version>
 
 	<properties>
 		<build.builder>File Server</build.builder>
@@ -49,7 +49,7 @@
 							<manifestEntries>
 								<Main-Class>fr.minepod.bootstrap.Bootstrap</Main-Class>
 								<Built-By>${build.builder}</Built-By>
-								<Bootstrap-Version>${project.version}</Bootstrap-Version>
+								<Bootstrap-version>${project.version}</Bootstrap-version>
 							</manifestEntries>
 						</transformer>
 					</transformers>

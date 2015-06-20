@@ -1,6 +1,5 @@
 package fr.minepod.bootstrap;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.Attributes;
@@ -22,10 +21,6 @@ public class BootstrapConfig extends LauncherConfig {
     bootstrapVersionFile = launcherLocation + slash + "bootstrap.txt";
     launcherJar = launcherLocation + slash + "launcher.jar";
 
-    if (!new File(launcherLocation).exists()) {
-      new File(launcherLocation).mkdir();
-    }
-
     try {
       InputStream InputStream =
           Bootstrap.class.getProtectionDomain().getCodeSource().getLocation().openStream();
@@ -36,9 +31,7 @@ public class BootstrapConfig extends LauncherConfig {
 
       if (Manifest != null) {
         Attributes Attributes = Manifest.getMainAttributes();
-        bootstrapVersion = Attributes.getValue("Bootstrap-Version");
-      } else {
-        bootstrapVersion = "Version de développement";
+        bootstrapVersion = Attributes.getValue("Bootstrap-version");
       }
     } catch (IOException e) {
       CrashReport.show(e.toString());

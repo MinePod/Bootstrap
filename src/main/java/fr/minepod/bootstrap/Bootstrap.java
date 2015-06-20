@@ -20,8 +20,8 @@ public class Bootstrap {
 
   public static void main(String[] args) {
     try {
-      BootstrapConfig.setBootstrapConfig();
       BootstrapConfig.setLauncherConfig();
+      BootstrapConfig.setBootstrapConfig();
       BootstrapConfig.logger.setUseParentHandlers(false);
 
       downloadRequiredFiles();
@@ -43,8 +43,8 @@ public class Bootstrap {
     downloader.join();
 
     String upstreamVersion = utilsFiles.readFile(BootstrapConfig.bootstrapVersionFile);
-    if (!BootstrapConfig.bootstrapVersion.equals(upstreamVersion)
-        && BootstrapConfig.bootstrapVersion != "Version de développement") {
+    if (BootstrapConfig.bootstrapVersion != null
+        && !BootstrapConfig.bootstrapVersion.equals(upstreamVersion)) {
       JOptionPane.showMessageDialog(null, "Une nouvelle version (" + upstreamVersion
           + ") est disponible sur le site.", "Information", JOptionPane.INFORMATION_MESSAGE);
 
