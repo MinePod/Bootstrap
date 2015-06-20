@@ -20,8 +20,8 @@ public class Bootstrap {
 
   public static void main(String[] args) {
     try {
-      BootstrapConfig.setLauncherConfig();
       BootstrapConfig.setBootstrapConfig();
+      BootstrapConfig.setLauncherConfig();
       BootstrapConfig.logger.setUseParentHandlers(false);
 
       downloadRequiredFiles();
